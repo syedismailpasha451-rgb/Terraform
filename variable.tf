@@ -1,10 +1,10 @@
 
 variable "filename" {
-  default = "animal.txt"
+  default = "syed.txt"
   type    = string
 }
 
 variable "content" {
-  default = "hello this is shahbazz"
+  default = "Hello this is ismail pashaa"
   type    = string
 }
