@@ -1,4 +1,4 @@
-resource "local_file" "pets" {
-  filename = "pets.txt"
-  content  = "I love Pets!"
+resource "local_file" "my_pets" {
+  filename = var.filename
+  content  = var.content
 }
