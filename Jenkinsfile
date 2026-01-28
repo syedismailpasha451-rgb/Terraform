@@ -1,30 +1,31 @@
-
 pipeline {
     agent any
 
+    environment {
+        AWS_ACCESS_KEY_ID     = credentials('AWS_ACCESS_KEY_ID')
+        AWS_SECRET_ACCESS_KEY = credentials('AWS_SECRET_ACCESS_KEY')
+        AWS_DEFAULT_REGION    = "us-east-1"
+    }
+
     stages {
-        stage('Checkout SCM') {
+        stage('Checkout') {
             steps {
-                checkout scm
+                git branch: 'main',
+                    url: 'https://github.com/syedismailpasha451-rgb/Terraform.git'
             }
         }
 
         stage('Terraform Init') {
-            steps {
-                sh 'terraform init'
-            }
+            steps { sh 'terraform init' }
         }
 
         stage('Terraform Plan') {
-            steps {
-                sh 'terraform plan'
-            }
+            steps { sh 'terraform plan' }
         }
 
         stage('Terraform Apply') {
-            steps {
-                sh 'terraform apply -auto-approve'
-            }
+            steps { sh 'terraform apply -auto-approve' }
         }
     }
 }
+
