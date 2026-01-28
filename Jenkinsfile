@@ -25,6 +25,20 @@ pipeline {
             }
         }
 
+        stage('Terraform Import (if exists)') {
+            steps {
+                withCredentials([
+                    string(credentialsId: 'AWS_ACCESS_KEY_ID', variable: 'AWS_ACCESS_KEY_ID'),
+                    string(credentialsId: 'AWS_SECRET_ACCESS_KEY', variable: 'AWS_SECRET_ACCESS_KEY')
+                ]) {
+                    sh '''
+                    terraform state list | grep aws_iam_user.admin_user || \
+                    terraform import aws_iam_user.admin_user Syed
+                    '''
+                }
+            }
+        }
+
         stage('Terraform Plan') {
             steps {
                 withCredentials([
